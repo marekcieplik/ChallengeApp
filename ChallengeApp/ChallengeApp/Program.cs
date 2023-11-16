@@ -1,21 +1,13 @@
-﻿var name = "Paul";
-var born = "male";
-var age = 13;
-if (age == 33 && name == "Ewa")
+﻿var number = 4556;
+int[] countLetters = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+string numberInString = number.ToString();
+char[] letters = numberInString.ToCharArray();
+foreach (char c in letters)
 {
-    Console.WriteLine("Ewa, lat 33");
+    int inde = Convert.ToInt32(c) - Convert.ToInt32('0');
+    countLetters[inde] = countLetters[inde] + 1;
 }
-else if (born == "female")
-{
-    if (age < 30)
-    {
-        Console.WriteLine("Kobieta poniżej 30 lat");
-    }
-}
-else //"male"
-{
-    if (age < 18)
-    {
-        Console.WriteLine("Niepełnoletni mężczyzna");
-    }
+for(int i = 0; i < countLetters.Length; i ++) 
+{  
+    Console.WriteLine(i+" => " + countLetters[i]); 
 }
