@@ -1,13 +1,16 @@
-﻿var number = 4556;
-int[] countLetters = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-string numberInString = number.ToString();
-char[] letters = numberInString.ToCharArray();
-foreach (char c in letters)
+﻿//zadanie: https://discord.com/channels/922475032091959348/1071383050497306665
+Console.WriteLine("Program sprawdzi czy liczba jest dodatnia, ujemna, czy równa zero.\nPodaj liczbę: ");
+int number;
+string text = Console.ReadLine(); // Odczytuje tekst z klawiatury
+int.TryParse(text, out number); // Konwertuje tekst na typ int i przypisuje do zmiennej number
+if (number == 0)
 {
-    int inde = Convert.ToInt32(c) - Convert.ToInt32('0');
-    countLetters[inde] = countLetters[inde] + 1;
+    Console.WriteLine("number równa zero");
+}else if (number > 0)
+{
+    Console.WriteLine("number jest dodatnia");
 }
-for(int i = 0; i < countLetters.Length; i ++) 
-{  
-    Console.WriteLine(i+" => " + countLetters[i]); 
+else
+{
+    Console.WriteLine("number jest ujemna");
 }
