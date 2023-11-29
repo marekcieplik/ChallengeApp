@@ -15,7 +15,26 @@
         }
         public void AddScore(int score)
         {
-            this.score.Add(score);
+            if (score > 0)
+            {
+                this.score.Add(score);
+
+            }
+            else
+            {
+                Console.WriteLine("Scores should by positive numbers");
+            }
+        }
+        public void PenaltyPoints(int score)
+        {
+            if (score < 0)
+            {
+                this.score.Add(score);
+            }
+            else
+            {
+                Console.WriteLine("PenaltyPoints should by negative numbers");
+            }
         }
         public int ScoreSum()
         {
