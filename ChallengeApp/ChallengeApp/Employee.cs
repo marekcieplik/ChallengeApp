@@ -2,47 +2,36 @@
 {
     public class Employee
     {
-        private List<int> score = new List<int>();
-        public string Name { get; private set; }
-        public string LastName { get; private set; }
-        public int Age { get; set; }
+        private List<float> grades = new List<float>();
 
-        public Employee(string name, string lastName, int age)
+        public Employee(string name, string surname) // ctor - emmed do konstruktora
         {
             this.Name = name;
-            this.LastName = lastName;
-            this.Age = age;
+            this.Surname = surname;
         }
-        public void AddScore(int score)
-        {
-            if (score > 0)
-            {
-                this.score.Add(score);
+        public string Name {  get; private set; }
+        public string Surname { get; private set; }
 
-            }
-            else
-            {
-                Console.WriteLine("Scores should by positive numbers");
-            }
-        }
-        public void PenaltyPoints(int score)
+        public void AddGrade(float grade)
         {
-            if (score < 0)
-            {
-                this.score.Add(score);
-            }
-            else
-            {
-                Console.WriteLine("PenaltyPoints should by negative numbers");
-            }
+            this.grades.Add(grade);
         }
-        public int ScoreSum()
+
+        public Statistics GetStatistics()  //podsumowanie: model danych jako referencja do obiektu
         {
-            return this.score.Sum();
-        }
-        public string EmployeeKard()
-        {
-            return this.Name + " " + this.LastName + ", score = " + this.ScoreSum().ToString();
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
+
+            foreach (var grade in this.grades)
+            {
+                statistics.Max = Math.Max(statistics.Max, grade);
+                statistics.Min = Math.Min(statistics.Min, grade);
+                statistics.Average += grade;
+            }
+            statistics.Average /= this.grades.Count;
+            return statistics;
         }
     }
 }

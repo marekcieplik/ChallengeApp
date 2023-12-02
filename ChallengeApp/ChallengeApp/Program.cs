@@ -1,24 +1,12 @@
-﻿
-using ChallengeApp;
+﻿using ChallengeApp;
 
-//2. stwórz 3 pracowników
-Employee empl1 = new Employee("Jan", "Kowalski", 25);
-Employee empl2 = new Employee("Tadeusz", "Nowak", 25);
-Employee empl3 = new Employee("Marian", "Mazur", 62);
-
-//przydzielenie punktów
-for (int i = 0; i < 5; i++)
+var employee = new Employee("Tadeusz", "Górniak");
+employee.AddGrade(1.24f);
+for (int i = 0; i < 10; i++)
 {
-    empl1.AddScore(i + 1);
-    empl2.AddScore(i * 2 + 1);
-    empl3.AddScore(10 - i);
+    employee.AddGrade(i);
 }
-
-//Wyszukaj pracownika z największą liczbą ocen
-Personnel personnel = new Personnel();
-personnel.AddEmployee(empl1);
-personnel.AddEmployee(empl2);
-personnel.AddEmployee(empl3);
-
-Console.WriteLine("Max score emploee searching...");
-Console.WriteLine(personnel.MaximumScoreEmploee().EmployeeKard());
+var statistics = employee.GetStatistics();  // goto implementation - ^LKM
+Console.WriteLine($"Average: {statistics.Average:N2}");  //string interpolation with precision
+Console.WriteLine($"Max: {statistics.Max}");
+Console.WriteLine($"Min: {statistics.Min}");
