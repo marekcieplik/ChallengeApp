@@ -14,9 +14,50 @@
 
         public void AddGrade(float grade)
         {
-            this.grades.Add(grade);
+            if (grade >= 0 && grade <= 100)
+            {
+                this.grades.Add(grade);
+            }
+            else
+            {
+                Console.WriteLine("Invalid grade value");
+            }
         }
-
+        public void AddGrade(string grade)
+        {
+            if (float.TryParse(grade, out float result))  // validation
+            {
+                this.AddGrade(result);
+            }
+            else
+            {
+                Console.WriteLine("string is not float");
+            }
+        }
+        public void AddGrade(double grade)
+        {
+            if(grade <= float.MaxValue && grade >= float.MinValue) 
+            {
+                var valueFloat = (float)grade;
+                this.AddGrade(valueFloat);
+            }
+            else 
+            { 
+                Console.WriteLine("grade is out of float range"); 
+            }
+        }
+        public void AddGrae(long grade)
+        {
+            if (grade <= float.MaxValue && grade >= float.MinValue)
+            {
+                var valueFloat = (float)grade;
+                this.AddGrade(valueFloat);
+            }
+            else
+            {
+                Console.WriteLine("grade is out of float range");
+            }
+        }
         public Statistics GetStatistics()  //podsumowanie: model danych jako referencja do obiektu
         {
             var statistics = new Statistics();

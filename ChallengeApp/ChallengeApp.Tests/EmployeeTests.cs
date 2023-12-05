@@ -42,5 +42,38 @@
             // assert
             Assert.AreEqual(Math.Round(average, 2), Math.Round(statistics.Average, 2));
         }
+        [Test]
+        public void WhenGetStatistiscCalled_ShouldMaxIsLessOrEqual100()
+        {
+            // arrange
+            var employee = new Employee("name", "surname");
+            employee.AddGrade(200);
+            employee.AddGrade(2);
+            var statistics = employee.GetStatistics();
+            Assert.LessOrEqual(statistics.Max, 100f);
+        }
+        [Test]
+        public void WhenGetStatisticsCalled_ShouldMinIsGreaterOrEqualZero()
+        {
+            var employee = new Employee("name", "surname");
+            employee.AddGrade(-10);
+            employee.AddGrade(2);
+            var statistics = employee.GetStatistics();
+            Assert.GreaterOrEqual(statistics.Min, 0);
+        }
+        [Test]
+        public void WhenAddGradeString_ShouldBeEqualWithAddGradeFlout()
+        {
+            // arrange
+            var employerString = new Employee("name", "surname");
+            var employerFloat = new Employee("name", "surname");
+            employerFloat.AddGrade(5f);
+            employerString.AddGrade("5");
+            // act
+            var statisticsString = employerString.GetStatistics();
+            var statisticsFloat = employerFloat.GetStatistics();
+            // assert
+            Assert.AreEqual(statisticsFloat.Max, statisticsString.Max);
+        }
     }
 }
