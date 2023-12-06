@@ -62,7 +62,7 @@
             Assert.GreaterOrEqual(statistics.Min, 0);
         }
         [Test]
-        public void WhenAddGradeString_ShouldBeEqualWithAddGradeFlout()
+        public void WhenAddGradeString_ShouldBeEqualWithAddGradeFloat()
         {
             // arrange
             var employerString = new Employee("name", "surname");
@@ -75,5 +75,82 @@
             // assert
             Assert.AreEqual(statisticsFloat.Max, statisticsString.Max);
         }
+        [Test]
+        public void WhenGetStatisticsWithDoWhileCalled_ShouldEqualWithGetStatistics()
+        {
+            // arrange
+            var employer = new Employee("name", "surname");
+            var employerDoWhile = new Employee("loop", "DoWhile");
+            for(int i = 0; i < 10; i++)
+            {
+                employerDoWhile.AddGrade(i);
+                employer.AddGrade(i);
+            }
+            // act
+            var statistics = employer.GetStatistics();
+            var statisticsDoWhile = employerDoWhile.GetStatisticsWithDoWhile();
+            // asset
+            Assert.AreEqual(statisticsDoWhile.Max, statistics.Max); 
+            Assert.AreEqual(statisticsDoWhile.Min, statistics.Min);
+            Assert.AreEqual(statisticsDoWhile.Average, statistics.Average);
+        }
+        [Test]
+        public void WhenGetStatisticsWithWhileCalled_ShouldEqualWithGetStatistics()
+        {
+            // arrange
+            var employer = new Employee("name", "surname");
+            var employerWhile = new Employee("loop", "While");
+            for (int i = 0; i < 10; i++)
+            {
+                employerWhile.AddGrade(i);
+                employer.AddGrade(i);
+            }
+            // act
+            var statistics = employer.GetStatistics();
+            var statisticsWhile = employerWhile.GetStatisticsWithWhile();
+            // asset
+            Assert.AreEqual(statisticsWhile.Max, statistics.Max);
+            Assert.AreEqual(statisticsWhile.Min, statistics.Min);
+            Assert.AreEqual(statisticsWhile.Average, statistics.Average);
+        }
+        [Test]
+        public void WhenGetStatisticsWithForCalled_ShouldEqualWithGetStatistics()
+        {
+            // arrange
+            var employer = new Employee("name", "surname");
+            var employerFor = new Employee("loop", "for");
+            for (int i = 0; i < 10; i++)
+            {
+                employerFor.AddGrade(i);
+                employer.AddGrade(i);
+            }
+            // act
+            var statistics = employer.GetStatistics();
+            var statisticsFor = employerFor.GetStatisticsWithFor();
+            // asset
+            Assert.AreEqual(statisticsFor.Max, statistics.Max);
+            Assert.AreEqual(statisticsFor.Min, statistics.Min);
+            Assert.AreEqual(statisticsFor.Average, statistics.Average);
+        }
+        [Test]
+        public void WhenGetStatisticsWithForeach_ShouldEqualWithGetStatistics()
+        {
+            // arrange
+            var employer = new Employee("name", "surname");
+            var employerForeach = new Employee("loop", "foreach");
+            for (int i = 0; i < 10; i++)
+            {
+                employerForeach.AddGrade(i);
+                employer.AddGrade(i);
+            }
+            // act
+            var statistics = employer.GetStatistics();
+            var statisticsForeach = employerForeach.GetStatisticsWithForeach();
+            // asset
+            Assert.AreEqual(statisticsForeach.Max, statistics.Max);
+            Assert.AreEqual(statisticsForeach.Min, statistics.Min);
+            Assert.AreEqual(statisticsForeach.Average, statistics.Average);
+        }
+
     }
 }
