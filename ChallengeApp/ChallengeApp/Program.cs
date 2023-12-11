@@ -1,6 +1,7 @@
 ﻿using ChallengeApp;
 
 Console.WriteLine("Witamy w programie XYX do oceny Pracowników");
+Console.WriteLine("===========================================");
 Console.WriteLine();
 Console.WriteLine("Podaj ocenę Pracownika, lub (q) - zakończ program :");
 var input = Console.ReadLine();
@@ -15,13 +16,26 @@ do
     }
     if (input.ToUpper() == "S")
     {
+        try
+        {
         var statistics = employee.GetStatistics();
         Console.WriteLine($"Average: { statistics.AverageLetter}");
         Console.WriteLine($"Min: {statistics.AverageLetter}");
         Console.WriteLine($"Max: {statistics.AverageLetter}");
-        break;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Exception catched: {e.Message}");
+        }
     }
-    employee.AddGrade(input);
+    try
+    {
+        employee.AddGrade(input);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
     Console.WriteLine("Podaj kolejną ocenę pracownika lub (s) - statystyki:");
     input = Console.ReadLine();
 }

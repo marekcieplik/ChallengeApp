@@ -205,5 +205,60 @@
             Assert.AreEqual(20, statistics.Min);
             Assert.AreEqual(20, statistics.Average);
         }
+        [Test]
+        public void WhenAddGradeA_ShouldAvarageLetterA()
+        {
+            // arrange
+            var employee = new Employee("AddGradeA", "AverageLetterA");
+            employee.AddGrade("A");
+            // act
+            var statistics = employee.GetStatistics();
+            // assert
+            Assert.That(statistics.AverageLetter, Is.EqualTo('A'));
+        }
+        [Test]
+        public void WhenAddGradeB_ShouldAvarageLetterB()
+        {
+            // arrange
+            var employee = new Employee("AddGradeB", "AverageLetterB");
+            employee.AddGrade("B");
+            // act
+            var statistics = employee.GetStatistics();
+            // assert
+            Assert.That(statistics.AverageLetter, Is.EqualTo('B'));
+        }
+        [Test]
+        public void WhenAddGradeC_ShouldAvarageLetterC()
+        {
+            // arrange
+            var employee = new Employee("AddGradeC", "AverageLetterA");
+            employee.AddGrade("A");
+            // act
+            var statistics = employee.GetStatistics();
+            // assert
+            Assert.That(statistics.AverageLetter, Is.EqualTo('A'));
+        }
+        [Test]
+        public void WhenAddGradeA_ShouldAvarageLetterA()
+        {
+            // arrange
+            var employee = new Employee("AddGradeA", "AverageLetterA");
+            employee.AddGrade("A");
+            // act
+            var statistics = employee.GetStatistics();
+            // assert
+            Assert.That(statistics.AverageLetter, Is.EqualTo('A'));
+        }
+        [Test]
+        public void WhenAddGradeA_ShouldAvarageLetterA()
+        {
+            // arrange
+            var employee = new Employee("AddGradeA", "AverageLetterA");
+            employee.AddGrade("A");
+            // act
+            var statistics = employee.GetStatistics();
+            // assert
+            Assert.That(statistics.AverageLetter, Is.EqualTo('A'));
+        }
     }
 }

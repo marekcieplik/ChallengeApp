@@ -20,7 +20,7 @@ namespace ChallengeApp
             }
             else
             {
-                Console.WriteLine("Invalid grade value");
+                throw new Exception("Invalid grade value");
             }
         }
         public void AddGrade(string grade)
@@ -36,7 +36,7 @@ namespace ChallengeApp
             }
             else
             {
-                Console.WriteLine("string is not float ");
+                throw new Exception("string is not float ");
             }
         }
         public void AddGrade(int grade)
@@ -60,30 +60,30 @@ namespace ChallengeApp
             {
                 case 'A':
                 case 'a':
-                    this.grades.Add(100);
+                    this.AddGrade(100);
                     break;
                 case 'B':
                 case 'b':
-                    this.grades.Add(80);
+                    this.AddGrade(80);
                     break;
                 case 'C':
                 case 'c':
-                    this.grades.Add(60);
+                    this.AddGrade(60);
                     break;
                 case 'D':
                 case 'd':
-                    this.grades.Add(40);
+                    this.AddGrade(40);
                     break;
                 case 'E':
                 case 'e':
-                    this.grades.Add(20);
+                    this.AddGrade(20);
                     break;
-                default: 
-                    Console.WriteLine("wrong letter");
+                case 'S':
+                case 's':
                     break;
+                default:
+                    throw new Exception("wrong letter");
             }
-            //var valueFloat = (float)grade;
-            //this.AddGrade(valueFloat);
         }
         public Statistics GetStatistics()
         {
@@ -118,8 +118,7 @@ namespace ChallengeApp
                     statistics.AverageLetter = 'E';
                     break;
                 default:
-                    Console.WriteLine("average is not defined");
-                    break;
+                    throw new Exception("average is not defined");
             }
             return statistics;
         }
