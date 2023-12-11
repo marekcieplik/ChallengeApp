@@ -30,7 +30,10 @@ do
     }
     try
     {
-        employee.AddGrade(input);
+        if (input != "s" || input != "s")
+        {
+            employee.AddGrade(input);
+        }
     }
     catch (Exception e)
     {

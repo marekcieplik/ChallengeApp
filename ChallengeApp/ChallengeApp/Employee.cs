@@ -78,9 +78,6 @@ namespace ChallengeApp
                 case 'e':
                     this.AddGrade(20);
                     break;
-                case 'S':
-                case 's':
-                    break;
                 default:
                     throw new Exception("wrong letter");
             }
