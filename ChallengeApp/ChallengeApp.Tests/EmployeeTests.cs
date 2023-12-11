@@ -47,7 +47,7 @@
         {
             // arrange
             var employee = new Employee("name", "surname");
-            employee.AddGrade(200);
+            employee.AddGrade(100);
             employee.AddGrade(2);
             var statistics = employee.GetStatistics();
             Assert.LessOrEqual(statistics.Max, 100f);
@@ -56,7 +56,7 @@
         public void WhenGetStatisticsCalled_ShouldBeMinIsGreaterOrEqualZero()
         {
             var employee = new Employee("name", "surname");
-            employee.AddGrade(-10);
+            employee.AddGrade(0);
             employee.AddGrade(2);
             var statistics = employee.GetStatistics();
             Assert.GreaterOrEqual(statistics.Min, 0);
@@ -232,33 +232,50 @@
         {
             // arrange
             var employee = new Employee("AddGradeC", "AverageLetterA");
-            employee.AddGrade("A");
+            employee.AddGrade("C");
             // act
             var statistics = employee.GetStatistics();
             // assert
-            Assert.That(statistics.AverageLetter, Is.EqualTo('A'));
+            Assert.That(statistics.AverageLetter, Is.EqualTo('C'));
         }
         [Test]
-        public void WhenAddGradeA_ShouldAvarageLetterA()
+        public void WhenAddGradeD_ShouldAvarageLetterD()
         {
             // arrange
-            var employee = new Employee("AddGradeA", "AverageLetterA");
-            employee.AddGrade("A");
+            var employee = new Employee("AddGradeD", "AverageLetterD");
+            employee.AddGrade("D");
             // act
             var statistics = employee.GetStatistics();
             // assert
-            Assert.That(statistics.AverageLetter, Is.EqualTo('A'));
+            Assert.That(statistics.AverageLetter, Is.EqualTo('D'));
         }
         [Test]
-        public void WhenAddGradeA_ShouldAvarageLetterA()
+        public void WhenAddGradeE_ShouldAvarageLetterE()
         {
             // arrange
-            var employee = new Employee("AddGradeA", "AverageLetterA");
-            employee.AddGrade("A");
+            var employee = new Employee("AddGradeE", "AverageLetterE");
+            employee.AddGrade("E");
             // act
             var statistics = employee.GetStatistics();
             // assert
-            Assert.That(statistics.AverageLetter, Is.EqualTo('A'));
+            Assert.That(statistics.AverageLetter, Is.EqualTo('E'));
+        }
+        [Test]
+        public void AddGrade_ThrowsExceptionWhenGradeIsLowerThan0()
+        {
+            // arrange
+            var employee = new Employee("Throw", "Invalid grade value");
+            // assert
+            Assert.Throws<Exception>(() => employee.AddGrade(-100));
+        }
+        [Test]
+        public void AddGrade_ThrowsExceptionWhenGradeIsMoreThan100()
+        {
+            // arrange
+            var employee = new Employee("Throw", "Invalid grade value");
+            // assert
+            Assert.Throws<Exception>(() => employee.AddGrade(100.1f));
+            Assert.That(() => employee.AddGrade(100.1f), Throws.Exception.With.Message.EqualTo("Invalid grade value"));
         }
     }
 }
