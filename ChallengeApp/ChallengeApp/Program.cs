@@ -6,7 +6,8 @@ Console.WriteLine();
 Console.WriteLine("Podaj ocenę Pracownika, lub (q) - zakończ program :");
 var input = Console.ReadLine();
 
-var employee = new Employee("name", "surname");
+//var employee = new Employee("name", "surname");
+var employee = new Supervisor("name", "surname");
 
 do
 {
@@ -19,9 +20,9 @@ do
         try
         {
         var statistics = employee.GetStatistics();
-        Console.WriteLine($"Average: { statistics.AverageLetter}");
-        Console.WriteLine($"Min: {statistics.AverageLetter}");
-        Console.WriteLine($"Max: {statistics.AverageLetter}");
+        Console.WriteLine($"Average: { statistics.Average}");
+        Console.WriteLine($"Min: {statistics.Min}");
+        Console.WriteLine($"Max: {statistics.Max}");
         }
         catch (Exception e)
         {

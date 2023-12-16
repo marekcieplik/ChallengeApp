@@ -1,10 +1,11 @@
 ﻿namespace ChallengeApp
 {
-    public class Statistics  // model danych
+    public class Statistics
     {
-        public float Min { get; set; }  // prop - emmed property
+        public float Min { get; set; } 
         public float Max { get; set; }
         public float Average { get; set; }
         public char AverageLetter { get; set; }
+        public string AverageNote { get; set; }
     }
 }
