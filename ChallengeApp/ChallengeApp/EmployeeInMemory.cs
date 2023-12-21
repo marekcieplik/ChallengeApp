@@ -1,19 +1,14 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-
-namespace ChallengeApp
+﻿namespace ChallengeApp
 {
-    public class Employee: IEmployee
+    public class EmployeeInMemory : EmployeeBase
     {
-        public string Name { get; set; }
-        public string Surname { get; set; }
-
-        private List<float> grades = new List<float>();
-        public Employee(string name, string surname)
+        public EmployeeInMemory(string name, string surname) 
+            : base(name, surname)
         {
-            this.Name = name;
-            this.Surname = surname;
+            base.grades = new List<float>();
         }
-        public void AddGrade(float grade)
+
+        public override void AddGrade(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
@@ -24,38 +19,8 @@ namespace ChallengeApp
                 throw new Exception("Invalid grade value");
             }
         }
-        public void AddGrade(string grade)
-        {
-            if (float.TryParse(grade, out float result))
-            {
-                this.AddGrade(result);
-            }
-            else if (grade.Length == 1)
-            {
-                char[] charArray = grade.ToCharArray();
-                this.AddGrade(charArray[0]);
-            }
-            else
-            {
-                throw new Exception("string is not float ");
-            }
-        }
-        public void AddGrade(int grade)
-        {
-            var valueFloat = (float)grade;
-            this.AddGrade(valueFloat);
-        }
-        public void AddGrade(double grade)
-        {
-            var valueFloat = (float)grade;
-            this.AddGrade(valueFloat);
-        }
-        public void AddGrade(long grade)
-        {
-            var valueFloat = (float)grade;
-            this.AddGrade(valueFloat);
-        }
-        public void AddGrade(char grade)
+
+        public override void AddGrade(char grade)
         {
             switch (grade)
             {
@@ -83,20 +48,10 @@ namespace ChallengeApp
                     throw new Exception("wrong letter");
             }
         }
-        public Statistics GetStatistics()
-        {
-            var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
 
-            foreach (var grade in this.grades)
-            {
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Average += grade;
-            }
-            statistics.Average /= this.grades.Count;
+        public override Statistics GetStatistics()
+        {
+            var statistics = base.GetStatistics();
 
             switch (statistics.Average)
             {

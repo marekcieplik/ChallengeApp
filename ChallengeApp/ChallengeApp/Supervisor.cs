@@ -1,20 +1,15 @@
 ﻿namespace ChallengeApp
 {
-    public class Supervisor : IEmployee
+    public class Supervisor : EmployeeBase
     {
-        private List<float> grades = new List<float>();
-        
-        public string Name { get; private set; }
-
-        public string Surname { get; private set; }
 
         public Supervisor(string name, string surname) 
+            : base(name, surname) 
         {
-            this.Name = name;
-            this.Surname = surname;
+            base.grades = new List<float>();
         }
 
-        public void AddGrade(string grade)
+        public override void AddGrade(string grade)
         {
             char[] charArray = grade.ToCharArray();
             if ((grade.Length == 1) && (char.ToLower(charArray[0]) >= 'a') && (char.ToLower(charArray[0]) <= 'e'))
@@ -90,7 +85,7 @@
             }
         }
 
-        public void AddGrade(float grade)
+        public override void AddGrade(float grade)
         {
             if (grade >= 0 &&  grade <= 100)
             {
@@ -102,25 +97,7 @@
             }
         }
 
-        public void AddGrade(int grade)
-        {
-            var valueFloat = (float)grade;
-            this.AddGrade(valueFloat);
-        }
-
-        public void AddGrade(double grade)
-        {
-            var valueFloat = (float)grade;
-            this.AddGrade(valueFloat);
-        }
-
-        public void AddGrade(long grade)
-        {
-            var valueFloat = (float)grade;
-            this.AddGrade(valueFloat);
-        }
-
-        public void AddGrade(char grade)
+        public override void AddGrade(char grade)
         {
             switch (grade)
             {
@@ -149,19 +126,10 @@
             }
         }
 
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
-            var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
-            foreach (var grade in this.grades)
-            {
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Average += grade;
-            }
-            statistics.Average /= this.grades.Count;
+            var statistics = base.GetStatistics();
+
             switch (statistics.Average)
             {
                 case var average when average == 100f:

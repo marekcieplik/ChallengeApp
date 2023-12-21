@@ -1,12 +1,12 @@
 ﻿namespace ChallengeApp.Tests
 {
-    public class EmployeeTests
+    public class EmployeeInMemoryTests
     {
         [Test]
         public void WhenGetStatisticsCalled_ShouldReturnCorrectMax()
         {
             // arrange
-            var employee = new Employee("Andrzej", "Surname");
+            var employee = new EmployeeInMemory("Andrzej", "Surname");
             employee.AddGrade(3);
             employee.AddGrade(3);
             employee.AddGrade(4);
@@ -19,7 +19,7 @@
         public void WhenGetStatisticsCalled_ShouldReturnCorrectMin()
         {
             // arrange
-            var employee = new Employee("name", "surname");
+            var employee = new EmployeeInMemory("name", "surname");
             employee.AddGrade(3);
             employee.AddGrade(2);
             employee.AddGrade(3);
@@ -32,7 +32,7 @@
         public void WhenGetStatisticsCalled_ShouldReturnCorrectAverage()
         {
             // arrange
-            var employee = new Employee("name", "surname");
+            var employee = new EmployeeInMemory("name", "surname");
             employee.AddGrade(2);
             employee.AddGrade(2);
             employee.AddGrade(6);
@@ -46,7 +46,7 @@
         public void WhenGetStatistiscCalled_ShouldBeMaxIsLessOrEqual100()
         {
             // arrange
-            var employee = new Employee("name", "surname");
+            var employee = new EmployeeInMemory("name", "surname");
             employee.AddGrade(100);
             employee.AddGrade(2);
             var statistics = employee.GetStatistics();
@@ -55,7 +55,7 @@
         [Test]
         public void WhenGetStatisticsCalled_ShouldBeMinIsGreaterOrEqualZero()
         {
-            var employee = new Employee("name", "surname");
+            var employee = new EmployeeInMemory("name", "surname");
             employee.AddGrade(0);
             employee.AddGrade(2);
             var statistics = employee.GetStatistics();
@@ -65,8 +65,8 @@
         public void WhenAddGradeString5_ShouldBeEqualWithAddGradeFloat5()
         {
             // arrange
-            var employerString = new Employee("name", "surname");
-            var employerFloat = new Employee("name", "surname");
+            var employerString = new EmployeeInMemory("name", "surname");
+            var employerFloat = new EmployeeInMemory("name", "surname");
             employerFloat.AddGrade(5f);
             employerString.AddGrade("5");
             // act
@@ -79,7 +79,7 @@
         public void WhenAddGradeLetterA_ShouldAdd100()
         {
             // arrange
-            var employee = new Employee("char", "A");
+            var employee = new EmployeeInMemory("char", "A");
             employee.AddGrade('A');
             // act
             var statistics = employee.GetStatistics();
@@ -92,7 +92,7 @@
         public void WhenAddGradeLetterSmallA_ShouldAdd100()
         {
             // arrange
-            var employee = new Employee("char", "a");
+            var employee = new EmployeeInMemory("char", "a");
             employee.AddGrade('a');
             // act
             var statistics = employee.GetStatistics();
@@ -105,7 +105,7 @@
         public void WhenAddGradeLetterB_ShouldAdd80()
         {
             // arrange
-            var employee = new Employee("char", "B");
+            var employee = new EmployeeInMemory("char", "B");
             employee.AddGrade('B');
             // act
             var statistics = employee.GetStatistics();
@@ -118,7 +118,7 @@
         public void WhenAddGradeLetterSmallB_ShouldAdd80()
         {
             // arrange
-            var employee = new Employee("char", "b");
+            var employee = new EmployeeInMemory("char", "b");
             employee.AddGrade('b');
             // act
             var statistics = employee.GetStatistics();
@@ -131,7 +131,7 @@
         public void WhenAddGradeLetterC_ShouldAdd60()
         {
             // arrange
-            var employee = new Employee("char", "C");
+            var employee = new EmployeeInMemory("char", "C");
             employee.AddGrade('C');
             // act
             var statistics = employee.GetStatistics();
@@ -144,7 +144,7 @@
         public void WhenAddGradeLetterSmallC_ShouldAdd60()
         {
             // arrange
-            var employee = new Employee("char", "c");
+            var employee = new EmployeeInMemory("char", "c");
             employee.AddGrade('c');
             // act
             var statistics = employee.GetStatistics();
@@ -157,7 +157,7 @@
         public void WhenAddGradeLetterD_ShouldAdd40()
         {
             // arrange
-            var employee = new Employee("char", "D");
+            var employee = new EmployeeInMemory("char", "D");
             employee.AddGrade('D');
             // act
             var statistics = employee.GetStatistics();
@@ -170,7 +170,7 @@
         public void WhenAddGradeLetterSmallD_ShouldAdd40()
         {
             // arrange
-            var employee = new Employee("char", "d");
+            var employee = new EmployeeInMemory("char", "d");
             employee.AddGrade('d');
             // act
             var statistics = employee.GetStatistics();
@@ -183,7 +183,7 @@
         public void WhenAddGradeLetterE_ShouldAdd20()
         {
             // arrange
-            var employee = new Employee("char", "E");
+            var employee = new EmployeeInMemory("char", "E");
             employee.AddGrade('E');
             // act
             var statistics = employee.GetStatistics();
@@ -196,7 +196,7 @@
         public void WhenAddGradeLetterSmallE_ShouldAdd20()
         {
             // arrange
-            var employee = new Employee("char", "e");
+            var employee = new EmployeeInMemory("char", "e");
             employee.AddGrade('e');
             // act
             var statistics = employee.GetStatistics();
@@ -209,7 +209,7 @@
         public void WhenAddGradeA_ShouldAvarageLetterA()
         {
             // arrange
-            var employee = new Employee("AddGradeA", "AverageLetterA");
+            var employee = new EmployeeInMemory("AddGradeA", "AverageLetterA");
             employee.AddGrade("A");
             // act
             var statistics = employee.GetStatistics();
@@ -220,7 +220,7 @@
         public void WhenAddGradeB_ShouldAvarageLetterB()
         {
             // arrange
-            var employee = new Employee("AddGradeB", "AverageLetterB");
+            var employee = new EmployeeInMemory("AddGradeB", "AverageLetterB");
             employee.AddGrade("B");
             // act
             var statistics = employee.GetStatistics();
@@ -231,7 +231,7 @@
         public void WhenAddGradeC_ShouldAvarageLetterC()
         {
             // arrange
-            var employee = new Employee("AddGradeC", "AverageLetterA");
+            var employee = new EmployeeInMemory("AddGradeC", "AverageLetterA");
             employee.AddGrade("C");
             // act
             var statistics = employee.GetStatistics();
@@ -242,7 +242,7 @@
         public void WhenAddGradeD_ShouldAvarageLetterD()
         {
             // arrange
-            var employee = new Employee("AddGradeD", "AverageLetterD");
+            var employee = new EmployeeInMemory("AddGradeD", "AverageLetterD");
             employee.AddGrade("D");
             // act
             var statistics = employee.GetStatistics();
@@ -253,7 +253,7 @@
         public void WhenAddGradeE_ShouldAvarageLetterE()
         {
             // arrange
-            var employee = new Employee("AddGradeE", "AverageLetterE");
+            var employee = new EmployeeInMemory("AddGradeE", "AverageLetterE");
             employee.AddGrade("E");
             // act
             var statistics = employee.GetStatistics();
@@ -264,7 +264,7 @@
         public void AddGrade_ThrowsExceptionWhenGradeIsLowerThan0()
         {
             // arrange
-            var employee = new Employee("Throw", "Invalid grade value");
+            var employee = new EmployeeInMemory("Throw", "Invalid grade value");
             // assert
             Assert.Throws<Exception>(() => employee.AddGrade(-100));
         }
@@ -272,7 +272,7 @@
         public void AddGrade_ThrowsExceptionWhenGradeIsMoreThan100()
         {
             // arrange
-            var employee = new Employee("Throw", "Invalid grade value");
+            var employee = new EmployeeInMemory("Throw", "Invalid grade value");
             // assert
             Assert.Throws<Exception>(() => employee.AddGrade(100.1f));
             Assert.That(() => employee.AddGrade(100.1f), Throws.Exception.With.Message.EqualTo("Invalid grade value"));
