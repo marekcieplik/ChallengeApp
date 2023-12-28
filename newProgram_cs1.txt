@@ -1,0 +1,113 @@
+using ChallengeApp;
+
+Console.WriteLine("Witamy w programie XYX do oceny Pracowników");
+Console.WriteLine("===========================================");
+
+var employeeInMemory = new EmployeeInFile("employee", "InMemory");
+var employeeInFile = new EmployeeInFile("employee", "InFile");
+string input;
+do 
+{
+    input = "X";
+    while (!input.Equals("EX") && (!input.Equals("EM")) && (!input.Equals("EF")) && (!input.Equals("SU")))
+    {
+        Console.WriteLine();
+        Console.WriteLine("Podaj typ stanowisak:");
+        Console.WriteLine("EM / EF / SU lub EX - zakonczenie programu");
+        input = Console.ReadLine();
+        input = input.ToUpper();
+    }
+
+    switch (input)
+    {
+        case "EM":
+            Console.WriteLine("Podaj ocenę Pracownika w pamięci, lub (q) - zakończ wpisywanie :");
+            input = Console.ReadLine();
+
+            do
+            {
+                if (input.ToUpper() == "Q")
+                {
+                    break;
+                }
+                if (input.ToUpper() == "S")
+                {
+                    try
+                    {
+                        var statistics = employeeInMemory.GetStatistics();
+                        Console.WriteLine($"Employee {employeeInMemory.Name} {employeeInMemory.Surname}");
+                        Console.WriteLine($"Average: {statistics.Average}");
+                        Console.WriteLine($"Min: {statistics.Min}");
+                        Console.WriteLine($"Max: {statistics.Max}");
+                        Console.WriteLine($"Note Letter: {statistics.AverageLetter}");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Exception catched: {e.Message}");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        employeeInMemory.AddGrade(input);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Exception in EmployeeInMemory.AddGrade(input): {e.Message}");
+                    }
+                }
+                Console.WriteLine("Podaj kolejną ocenę pracownika w pamięci, lub (s) - statystyki lub (q) - zakończ wpisywanie:");
+                input = Console.ReadLine();
+            }
+            while (true);
+            break;
+        case "EF":
+            Console.WriteLine("Podaj ocenę Pracownika do pliku, lub (s) - statystyki, lub (q) - zakończ wpisywanie :");
+            input = Console.ReadLine();
+
+            do
+            {
+                if (input.ToUpper() == "Q")
+                {
+                    break;
+                }
+                if (input.ToUpper() == "S")
+                {
+                    try
+                    {
+                        var statistics = employeeInFile.GetStatistics();
+                        Console.WriteLine($"Employee {employeeInFile.Name} {employeeInFile.Surname}");
+                        Console.WriteLine($"Average: {statistics.Average}");
+                        Console.WriteLine($"Min: {statistics.Min}");
+                        Console.WriteLine($"Max: {statistics.Max}");
+                        Console.WriteLine($"Note Letter: {statistics.AverageLetter}");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Exception catched: {e.Message}");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        employeeInFile.AddGrade(input);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Exception in EmployeeInFile.AddGrade(input): {e.Message}");
+                    }
+                }
+                Console.WriteLine("Podaj kolejną ocenę pracownika do pliku, lub (s) - statystyki lub (q) - zakończ wpisywanie:");
+                input = Console.ReadLine();
+            }
+            while (true);
+            break;
+        case "SU":
+            Console.WriteLine("SUPERWOSOR not implemented");
+            break;
+    }
+} while (!input.Equals("EX"));
+
+ Console.WriteLine("Do zobaczenia");

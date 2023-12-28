@@ -7,7 +7,6 @@
         public EmployeeInFile(string name, string surname) 
             : base(name, surname)
         {
-            base.grades = new List<float>();
         }
 
         public override void AddGrade(float grade)
@@ -21,7 +20,7 @@
             }
             else
             {
-                throw new Exception("Invalid grade value");
+                throw new Exception("FILE.ADDGRADE.FLOAT: Float value is out range: <0,100>");
             }
         }
 
@@ -45,37 +44,110 @@
                     this.AddGrade(20f);
                     break;
                 default:
-                    throw new Exception("wrong letter");
+                    throw new Exception("FILE.ADDGRADE.CHAR: note letter is out of range [A..E]");
             }
+        }
+
+        public override void AddGrade(string grade)
+        {
+
+            char[] charArray = grade.ToCharArray();
+            if ((charArray.Length == 1) && (char.ToLower(charArray[0]) >= 'a') && (char.ToLower(charArray[0]) <= 'e'))
+            {
+                this.AddGrade(charArray[0]);
+            }
+            else if (float.TryParse(grade, out float result))
+            {
+                this.AddGrade(result);
+            }
+            else
+            {
+                throw new Exception("FILE.ADDGRADE.STRING: string is not float or string is not note (A-E)");
+            }
+        }
+
+        public override void AddGrade(int grade)
+        {
+            var valueFloat = (float)grade;
+            this.AddGrade(valueFloat);
+        }
+
+        public override void AddGrade(double grade)
+        {
+            var valueFloat = (float)grade;
+            this.AddGrade(valueFloat);
         }
 
         public override Statistics GetStatistics()
         {
-            var result = new Statistics();
-            if (File.Exists(fileName))
+            var gradesFromFile = this.ReadGradesFromFile();
+            var result = this.CountStatistics(gradesFromFile);
+            return result;
+        }
+
+        private List<float> ReadGradesFromFile()
+        {
+            var grades = new List<float>();
+            if (File.Exists($"{fileName}"))
             {
-                using (var reader = File.OpenText(fileName))
+                using (var reader = File.OpenText($"{fileName}"))
                 {
                     var line = reader.ReadLine();
                     while (line != null)
                     {
-                        try
-                        {
-                            var valueFloat = float.Parse(line);
-                            this.grades.Add(valueFloat);
-                        }catch(Exception e)
-                        {
-                            Console.WriteLine($"wrong value in file: '{line}', Exception Message: {e.Message}");                           
-                        }
+                        var number = float.Parse(line);
+                        grades.Add(number);
+                        line = reader.ReadLine();
                     }
                 }
-                result = base.GetStatistics();
             }
             else
             {
-                throw new FileNotFoundException(fileName);
+                throw new FileNotFoundException();
             }
-            return result;
+            return grades;
+        }
+
+        private Statistics CountStatistics(List<float> grades)
+        {
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
+
+            foreach (var grade in grades)
+            {
+                statistics.Min = Math.Min(statistics.Min, grade);
+                statistics.Max = Math.Max(statistics.Max, grade);
+                statistics.Average += grade;
+            }
+            if (grades.Count > 0)
+            {
+                statistics.Average /= grades.Count;
+            }
+
+            switch (statistics.Average)
+            {
+                case var average when average > 80:
+                    statistics.AverageLetter = 'A';
+                    break;
+                case var average when average > 60:
+                    statistics.AverageLetter = 'B';
+                    break;
+                case var average when average > 40:
+                    statistics.AverageLetter = 'C';
+                    break;
+                case var average when average > 20:
+                    statistics.AverageLetter = 'D';
+                    break;
+                case var average when average > 0:
+                    statistics.AverageLetter = 'E';
+                    break;
+                default:
+                    throw new Exception("FILE.GETSTATISTISC: average LETTER is not defined");
+            }
+
+            return statistics;
         }
     }
 }

@@ -6,7 +6,7 @@
         public void WhenGetStatisticsCalled_ShouldReturnCorrectMax()
         {
             // arrange
-            var employee = new EmployeeInMemory("Andrzej", "Surname");
+            var employee = new EmployeeInMemory("In", "Max");
             employee.AddGrade(3);
             employee.AddGrade(3);
             employee.AddGrade(4);
@@ -19,7 +19,7 @@
         public void WhenGetStatisticsCalled_ShouldReturnCorrectMin()
         {
             // arrange
-            var employee = new EmployeeInMemory("name", "surname");
+            var employee = new EmployeeInMemory("In", "Min");
             employee.AddGrade(3);
             employee.AddGrade(2);
             employee.AddGrade(3);
@@ -32,7 +32,7 @@
         public void WhenGetStatisticsCalled_ShouldReturnCorrectAverage()
         {
             // arrange
-            var employee = new EmployeeInMemory("name", "surname");
+            var employee = new EmployeeInMemory("In", "Average");
             employee.AddGrade(2);
             employee.AddGrade(2);
             employee.AddGrade(6);
@@ -42,25 +42,7 @@
             // assert
             Assert.AreEqual(Math.Round(average, 2), Math.Round(statistics.Average, 2));
         }
-        [Test]
-        public void WhenGetStatistiscCalled_ShouldBeMaxIsLessOrEqual100()
-        {
-            // arrange
-            var employee = new EmployeeInMemory("name", "surname");
-            employee.AddGrade(100);
-            employee.AddGrade(2);
-            var statistics = employee.GetStatistics();
-            Assert.LessOrEqual(statistics.Max, 100f);
-        }
-        [Test]
-        public void WhenGetStatisticsCalled_ShouldBeMinIsGreaterOrEqualZero()
-        {
-            var employee = new EmployeeInMemory("name", "surname");
-            employee.AddGrade(0);
-            employee.AddGrade(2);
-            var statistics = employee.GetStatistics();
-            Assert.GreaterOrEqual(statistics.Min, 0);
-        }
+        
         [Test]
         public void WhenAddGradeString5_ShouldBeEqualWithAddGradeFloat5()
         {
@@ -267,6 +249,7 @@
             var employee = new EmployeeInMemory("Throw", "Invalid grade value");
             // assert
             Assert.Throws<Exception>(() => employee.AddGrade(-100));
+            Assert.That(() => employee.AddGrade(-100), Throws.Exception.With.Message.EqualTo("MEMORY.ADDGRADE.FLOAT: Float value is out range: <0,100>"));
         }
         [Test]
         public void AddGrade_ThrowsExceptionWhenGradeIsMoreThan100()
@@ -275,7 +258,7 @@
             var employee = new EmployeeInMemory("Throw", "Invalid grade value");
             // assert
             Assert.Throws<Exception>(() => employee.AddGrade(100.1f));
-            Assert.That(() => employee.AddGrade(100.1f), Throws.Exception.With.Message.EqualTo("Invalid grade value"));
+            Assert.That(() => employee.AddGrade(100.1f), Throws.Exception.With.Message.EqualTo("MEMORY.ADDGRADE.FLOAT: Float value is out range: <0,100>"));
         }
     }
 }

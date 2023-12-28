@@ -2,77 +2,38 @@
 
 Console.WriteLine("Witamy w programie XYX do oceny Pracowników");
 Console.WriteLine("===========================================");
-Console.WriteLine();
 
-Console.WriteLine("Podaj typ stanowisak:");
-Console.WriteLine("EM / EF / SU lub EX - zakonczenie programu");
-var input = Console.ReadLine();
-input = input.ToUpper();
-while ((!input.Equals("EX") && (!input.Equals("EM")) && (!input.Equals("EF")) && (!input.Equals("SU"))))
+var employeeInMemory = new EmployeeInMemory("employee", "InMemory");
+employeeInMemory.AddGrade(2);
+
+try
 {
-    input = Console.ReadLine();
+    var statistics = employeeInMemory.GetStatistics();
+    Console.WriteLine($"Employee {employeeInMemory.Name} {employeeInMemory.Surname}");
+    Console.WriteLine($"Average: {statistics.Average}");
+    Console.WriteLine($"Min: {statistics.Min}");
+    Console.WriteLine($"Max: {statistics.Max}");
+    Console.WriteLine($"Note Letter: {statistics.AverageLetter}");
 }
-string name = "employee";
-string surname = "";
-switch (input.ToUpper())
+catch (Exception e)
 {
-    case "EM":
-        surname = "InMemory";
-        break;
-    case "EF":
-        surname = "InFile";
-        break;
-    case "SU":
-        surname = "Supervisor";
-        break;
-    case "EX":
-        input = "q";
-        break;
+    Console.WriteLine($"Exception catched: {e.Message}");
 }
 
-if (input.ToUpper() != "Q")
+var employeeInFile = new EmployeeInFile("employee", "InFile");
+employeeInFile.AddGrade("A");
+try
 {
-    var employee = new EmployeeInFile(name, surname);
-
-    Console.WriteLine("Podaj ocenę Pracownika, lub (q) - zakończ program :");
-    input = Console.ReadLine();
-
-    do
-    {
-        if (input.ToUpper() == "Q")
-        {
-            break;
-        }
-        if (input.ToUpper() == "S")
-        {
-            try
-            {
-                var statistics = employee.GetStatistics();
-                Console.WriteLine($"Average: {statistics.Average}");
-                Console.WriteLine($"Min: {statistics.Min}");
-                Console.WriteLine($"Max: {statistics.Max}");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Exception catched: {e.Message}");
-            }
-        }
-        try
-        {
-            if (input != "s" || input != "S")
-            {
-                employee.AddGrade(input);
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
-        Console.WriteLine("Podaj kolejną ocenę pracownika lub (s) - statystyki lub (q) - zakończ program:");
-        input = Console.ReadLine();
-    }
-    while (true);
-
+    var statistics = employeeInFile.GetStatistics();
+    Console.WriteLine($"Employee {employeeInFile.Name} {employeeInFile.Surname}");
+    Console.WriteLine($"Average: {statistics.Average}");
+    Console.WriteLine($"Min: {statistics.Min}");
+    Console.WriteLine($"Max: {statistics.Max}");
+    Console.WriteLine($"Note Letter: {statistics.AverageLetter}");
 }
-EXIT:
+catch (Exception e)
+{
+    Console.WriteLine($"Exception catched: {e.Message}");
+}
+
 Console.WriteLine("Do zobaczenia");

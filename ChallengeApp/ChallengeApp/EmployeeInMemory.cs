@@ -2,10 +2,11 @@
 {
     public class EmployeeInMemory : EmployeeBase
     {
+        private List<float> grades = new List<float>();
+
         public EmployeeInMemory(string name, string surname) 
             : base(name, surname)
         {
-            base.grades = new List<float>();
         }
 
         public override void AddGrade(float grade)
@@ -16,8 +17,37 @@
             }
             else
             {
-                throw new Exception("Invalid grade value");
+                throw new Exception("MEMORY.ADDGRADE.FLOAT: Float value is out range: <0,100>");
             }
+        }
+
+        public override void AddGrade(string grade)
+        {
+            if (float.TryParse(grade, out float result))
+            {
+                this.AddGrade(result);
+            }
+            else if (grade.Length == 1)
+            {
+                char[] charArray = grade.ToCharArray();
+                this.AddGrade(charArray[0]);
+            }
+            else
+            {
+                throw new Exception("MEMORY.ADDGRADE.STRING: string is not float or string is not note (A-E)");
+            }
+        }
+
+        public override void AddGrade(int grade)
+        {
+            var valueFloat = (float)grade;
+            this.AddGrade(valueFloat);
+        }
+
+        public override void AddGrade(double grade)
+        {
+            var valueFloat = (float)grade;
+            this.AddGrade(valueFloat);
         }
 
         public override void AddGrade(char grade)
@@ -45,14 +75,23 @@
                     this.AddGrade(20);
                     break;
                 default:
-                    throw new Exception("wrong letter");
+                    throw new Exception("MEMORY.ADDGRADE.CHAR: note letter is out of range [A..E]");
             }
         }
 
         public override Statistics GetStatistics()
         {
-            var statistics = base.GetStatistics();
-
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
+            foreach (var grade in this.grades)
+            {
+                statistics.Max = Math.Max(statistics.Max, grade);
+                statistics.Min = Math.Min(statistics.Min, grade);
+                statistics.Average += grade;
+            }
+            statistics.Average /= this.grades.Count;
             switch (statistics.Average)
             {
                 case var average when average > 80:
@@ -71,7 +110,7 @@
                     statistics.AverageLetter = 'E';
                     break;
                 default:
-                    throw new Exception("average is not defined");
+                    throw new Exception("MEMORY.GETSTATISTICS: average LETTER is not defined");
             }
             return statistics;
         }

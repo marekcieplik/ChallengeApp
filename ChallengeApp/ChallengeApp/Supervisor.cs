@@ -1,15 +1,14 @@
 ﻿namespace ChallengeApp
 {
-    public class Supervisor : EmployeeBase
+    public class Supervisor
     {
+        private List<float> grades = new List<float>();
 
         public Supervisor(string name, string surname) 
-            : base(name, surname) 
         {
-            base.grades = new List<float>();
         }
 
-        public override void AddGrade(string grade)
+        public  void AddGrade(string grade)
         {
             char[] charArray = grade.ToCharArray();
             if ((grade.Length == 1) && (char.ToLower(charArray[0]) >= 'a') && (char.ToLower(charArray[0]) <= 'e'))
@@ -85,7 +84,7 @@
             }
         }
 
-        public override void AddGrade(float grade)
+        public  void AddGrade(float grade)
         {
             if (grade >= 0 &&  grade <= 100)
             {
@@ -97,7 +96,7 @@
             }
         }
 
-        public override void AddGrade(char grade)
+        public  void AddGrade(char grade)
         {
             switch (grade)
             {
@@ -126,9 +125,19 @@
             }
         }
 
-        public override Statistics GetStatistics()
+        public  Statistics GetStatistics()
         {
-            var statistics = base.GetStatistics();
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
+            foreach (var grade in this.grades)
+            {
+                statistics.Max = Math.Max(statistics.Max, grade);
+                statistics.Min = Math.Min(statistics.Min, grade);
+                statistics.Average += grade;
+            }
+            statistics.Average /= this.grades.Count;
 
             switch (statistics.Average)
             {
