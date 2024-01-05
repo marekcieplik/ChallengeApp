@@ -3,8 +3,9 @@
 Console.WriteLine("Witamy w programie XYX do oceny Pracowników");
 Console.WriteLine("===========================================");
 
-var employeeInMemory = new EmployeeInMemory("employee", "InMemory");
-employeeInMemory.AddGrade(2);
+var employeeInMemory = new EmployeeInMemory("In", "Memory");
+
+employeeInMemory.AddGrade(60);
 
 try
 {

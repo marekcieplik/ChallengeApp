@@ -2,6 +2,8 @@
 {
     public abstract class EmployeeBase : IEmployee
     {
+
+
         public string Name { get; private set; }
 
         public string Surname { get; private set; }
