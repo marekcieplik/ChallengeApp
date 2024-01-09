@@ -4,8 +4,14 @@ Console.WriteLine("Witamy w programie XYX do oceny Pracowników");
 Console.WriteLine("===========================================");
 
 var employeeInMemory = new EmployeeInMemory("In", "Memory");
-
+employeeInMemory.GradeAdded += MethodStartedWhenEvent;
+employeeInMemory.GradeAdded += employeeInMemory.GetStatistics;
 employeeInMemory.AddGrade(60);
+
+void MethodStartedWhenEvent(object sender, EventArgs args)
+{
+    Console.WriteLine("Event shooted: Dodano nową ocenę!");
+}
 
 try
 {
@@ -22,6 +28,7 @@ catch (Exception e)
 }
 
 var employeeInFile = new EmployeeInFile("employee", "InFile");
+employeeInFile.GradeAdded += MethodStartedWhenEvent;
 employeeInFile.AddGrade("A");
 try
 {

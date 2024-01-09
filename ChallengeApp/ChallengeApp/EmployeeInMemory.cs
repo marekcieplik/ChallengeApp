@@ -2,28 +2,24 @@
 {
     public class EmployeeInMemory : EmployeeBase
     {
-        public delegate string WriteMessage(string message);
+        public override event GradeAddedDelegate GradeAdded;
 
         private List<float> grades = new List<float>();
 
         public EmployeeInMemory(string name, string surname) 
             : base(name, surname)
         {
-            WriteMessage del;
-            del = ReturnMessage;
-            del("my text");
-            ReturnMessage("2 my text");
+        }
 
-        }
-        private string ReturnMessage(string message)
-        {
-            return message;
-        }
         public override void AddGrade(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
                 this.grades.Add(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }                    
             }
             else
             {
@@ -87,6 +83,12 @@
                 default:
                     throw new Exception("MEMORY.ADDGRADE.CHAR: note letter is out of range [A..E]");
             }
+        }
+
+        public void GetStatistics(object sender, EventArgs args)
+        {
+            var statistics = this.GetStatistics();
+            Console.WriteLine($"Ev statistics: NOTE={statistics.AverageLetter}, AVG={statistics.Average}, MAX={statistics.Max}, MIN={statistics.Min}");
         }
 
         public override Statistics GetStatistics()
